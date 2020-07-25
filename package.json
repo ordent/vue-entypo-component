@@ -1,0 +1,17 @@
+{
+  "name": "@ordent/vue-entypo-component",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dimas Satrio (@dimassrio)",
+  "license": "ISC",
+  "dependencies": {
+    "entypo": "^2.2.1",
+    "glob": "^7.1.6",
+    "handlebars": "^4.7.6"
+  },
+  "repository": "https://github.com/ordent/vue-entypo-component"
+}

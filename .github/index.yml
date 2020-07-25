@@ -1,0 +1,21 @@
+name: Build and Publish
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: checking out
+        run: |
+          npm install
+          npm update
+          node ./build.js
+          echo _auth=$PUBLISH_KEY >> .npmrc
+          echo email=dimassrio@gmail.com >> .npmrc
+          echo always-auth=true >> .npmrc
+          rm build.js
+          rm component-template.vue
+          npm version patch
+          npm publish access --public
