@@ -17,5 +17,8 @@ jobs:
           echo always-auth=true >> .npmrc
           rm build.js
           rm component-template.vue
+          git add *
+          git add .
+          git commit -m "temporary commit"
           npm version patch
           npm publish access --public
