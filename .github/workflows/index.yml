@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: 10.0.0
-      - run: npm ci
+      - run: npm install
       - run: node ./build.js
       - run: rm component-template.vue
       - run: rm build.js
