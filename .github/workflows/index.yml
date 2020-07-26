@@ -5,20 +5,28 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
     steps:
       - uses: actions/checkout@v2
-      - name: checking out
-        run: |
-          npm install
-          npm update
-          node ./build.js
-          echo _auth=$PUBLISH_KEY >> .npmrc
-          echo email=dimassrio@gmail.com >> .npmrc
-          echo always-auth=true >> .npmrc
-          rm build.js
-          rm component-template.vue
-          git add *
-          git add .
-          git commit -m "temporary commit"
-          npm version patch
-          npm publish access --public
+      - name: Use Node.js 10
+        uses: actions/setup-node@master
+        with:
+          node-version: 10.0.0
+      - run: npm ci
+      - run: node ./build.js
+      - run: rm component-template.vue
+      - run: rm build.js
+      - name: Publish if version has been updated
+        uses: pascalgn/npm-publish-action@3d228dd9d6c7851b8d24b532dc8d15d74f615043
+        with: # All of theses inputs are optional
+          tag_name: "v%s"
+          tag_message: "v%s"
+          commit_pattern: "^Release (\\S+)"
+          workspace: "."
+        env: # More info about the environment variables in the README
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
+          NPM_AUTH_TOKEN: ${{ secrets.PUBLISH_KEY }} #
