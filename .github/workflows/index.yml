@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 10
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v1
         with:
           node-version: 10.0.0
       - run: npm install
@@ -26,7 +26,7 @@ jobs:
           tag_name: "v%s"
           tag_message: "v%s"
           commit_pattern: "^Release (\\S+)"
-          workspace: "."
+          entryPoint: "index.js"
         env: # More info about the environment variables in the README
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
           NPM_AUTH_TOKEN: ${{ secrets.PUBLISH_KEY }} #
